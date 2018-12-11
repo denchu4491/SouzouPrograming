@@ -70,13 +70,20 @@ def draw_line(event,x,y,flags,param):
 
     if event == cv2.EVENT_LBUTTONDOWN:
         sx,sy = x,y
-
+        
     elif event == cv2.EVENT_LBUTTONUP:
         cv2.line(img,(sx,sy),(x,y),(255,0,0), 2)
         ex,ey = x,y
+               
 
 cv2.namedWindow('Draw_Line')
-cv2.setMouseCallback('Draw_Line',draw_line)
+#cv2.setMouseCallback('Draw_Line',draw_line)
+
+sx  = int(img.shape[1]/2)
+sy = 0
+ex = int(img.shape[1]/2)
+ey = int(img.shape[0])
+
 
 while(1):
     cv2.imshow('Draw_Line',img)
@@ -156,7 +163,10 @@ while(cap.isOpened()):
                     # cross line check
                     if (isIntersect(nlp0, nlp1, old_point, new_point)):
                         print ('Crossing!')
-                        crossed += 1
+                        if(nlp0[0] < old_point[0]):
+                            crossed += 1
+                        else:
+                            crossed -= 1
 
 
             # put floating text
